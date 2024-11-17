@@ -1,0 +1,89 @@
+{
+  "campus": {
+    "Águas Lindas": {
+      "descrição": "O Câmpus Águas Lindas de Goiás iniciou as atividades no mês de abril de 2014 com a oferta de cursos técnicos profissionalizantes a jovens e adultos do município e região.",
+      "facebook": "https://www.facebook.com/aguaslindas.ifg/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifg_aguaslindas/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=1"
+    },
+    "Anápolis": {
+      "descrição": "O Câmpus Anápolis se destaca na cidade pela atuação especializada em diferentes níveis e modalidades de ensino de forma gratuita e democrática.",
+      "facebook": "https://www.facebook.com/IFG.Anapolis.oficial/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifg.anapolis.oficial/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=2"
+    },
+    "Aparecida": {
+      "descrição": "O câmpus do IFG na cidade de Aparecida de Goiânia tem como objetivo contribuir para a promoção do desenvolvimento socioeconômico de Goiás, particularmente da Região Metropolitana de Goiânia.",
+      "facebook": "https://www.facebook.com/IFGAparecida/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifgaparecida/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=3"
+    },
+    "Formosa": {
+      "descrição": "O Câmpus de Formosa abriga três blocos, o acadêmico, o de laboratórios e as salas de aula, e ainda um prédio onde funciona a administração do câmpus.",
+      "facebook": "https://www.facebook.com/ifgformosa/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifgformosa/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=5"
+    },
+    "Goiânia": {
+      "descrição": "O Câmpus Goiânia oferece educação superior, básica e profissional, pluricurricular, especializada na oferta de educação profissional, tecnológica e gratuita em diferentes modalidades de ensino.",
+      "facebook": "https://www.facebook.com/IFG.Goiania/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifggoiania/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=6"
+    },
+    "Goiânia Oeste": {
+      "descrição": "O Câmpus Goiânia Oeste é a segunda unidade do IFG na capital, uma instituição federal, pública e que oferta ensino gratuito. O câmpus oferta educação gratuita à população de Goiânia, com foco na região Oeste, e também de municípios da Região Metropolitana.",
+      "facebook": "https://www.facebook.com/ifggoianiaoeste/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/campusgoianiaoeste",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=7"
+    },
+    "Goiás": {
+      "descrição": "A criação deste câmpus retoma a história centenária do IFG, pois, foi na antiga capita do Estado, Vila Boa de Goiás, onde tudo começou.",
+      "facebook": "https://www.facebook.com/IFG.campusGoias/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/explore/locations/466037463/ifg-campus-cidade-de-goias/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=4"
+    },
+    "Inhumas": {
+      "descrição": "Levando-se em conta as características e demandas regionais, o Câmpus Inhumas atua principalmente nas seguintes áreas de atuação: Informática, Química e Alimentos.",
+      "facebook": "https://www.facebook.com/groups/439268329481047/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifg_inhumas/s",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=8"
+    },
+    "Itumbiara": {
+      "descrição": "O Câmpus Itumbiara foi planejado com perfil industrial e a finalidade de capacitar mão-de-obra para suprir a demanda do setor",
+      "facebook": "https://www.facebook.com/ifgcampusitumbiara/?locale=pt_BR",
+      "instagram": "hhttps://www.instagram.com/ifgcampusitumbiara/?hl=pt",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=9"
+    },
+    "Jataí": {
+      "descrição": "O Câmpus Jataí trabalha com a perspectiva da formação integral de seus alunos, procurando oferecer, além de um sólido conhecimento na área tecnológica, uma formação humanística e reflexiva.",
+      "pagina": "https://www.ifg.edu.br/aguaslindas",
+      "facebook": "https://www.facebook.com/IFGJatai/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifg_campusjatai/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=10"
+    },
+    "Luziânia": {
+      "descrição": "O Câmpus Luziânia destaca-se na cidade pela contribuição para a formação e a qualificação de cidadãos com vistas à atuação profissional nos diversos setores da economia.",
+      "facebook": "https://www.facebook.com/IFG.Luziania/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifg_luziania/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=11"
+    },
+    "Senador Canedo": {
+      "descrição": "O Câmpus Senador Canedo é o quinto instalado na região metropolitana de Goiânia, tem por objetivos a promoção do desenvolvimento regional e a inclusão social, através da educação pública e gratuita.",
+      "facebook": "https://www.facebook.com/ifgsenadorcanedo/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifgsenadorcanedo/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=12"
+    },
+    "Uruaçu": {
+      "descrição": "O Câmpus Uruaçu tem a responsabilidade social e institucional de formar e qualificar profissionais, nos vários níveis e modalidades de ensino, para atender as demandas dos diversos setores da economia.",
+      "facebook": "https://www.facebook.com/uruacu.ifg/?locale=pt_BR",
+      "instagram": "https://www.instagram.com/ifguruacu/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=13"
+    },
+    "Valparaíso": {
+      "descrição": "O Câmpus Valparaíso é a quarta unidade do IFG no entorno de Brasília com o objetivo de atender a população do município e das cidades vizinhas.",
+      "facebook": "https://www.facebook.com/ifgcampusvalparaiso/?locale=pt",
+      "instagram": "https://www.instagram.com/ifgcampusvalparaiso/",
+      "localização": "https://www.ifg.edu.br/campus?showall=&start=14"
+    }
+  }
+}
