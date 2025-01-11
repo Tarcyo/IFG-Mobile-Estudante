@@ -1,0 +1,30 @@
+name: ifg_mobile_estudante
+description: "Aplicativo dos estudantes do Instituto Federal De Goiás."
+
+publish_to: 'none' 
+
+environment:
+  sdk:  ^3.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter 
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.3.1
+  http: ^1.2.2 
+  get_it: ^8.0.3
+  flutter_secure_storage: ^9.2.4
+  provider: ^6.1.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/ 
+    - assets/data/
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand/Quicksand.ttf 
