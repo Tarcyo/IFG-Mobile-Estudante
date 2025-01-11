@@ -1,17 +1,16 @@
 import 'package:provider/provider.dart';
-import 'layers/presentation/screens/mainTabBar/mainTabBar.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/providers/autoLoginProvider.dart';
+import 'layers/presentation/screens/mainTabBar/main_tab_bar.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/providers/will_auto_login_bool_Provider.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/providers/alreadAutoLogged.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/providers/notasControllerProvider.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/providers/alunoControllerProvider copy.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/providers/already_auto_logged_bool_provider.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/providers/notas_list_controller_provider.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/providers/aluno_entity_controller_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ifg_mobile_estudante/core/inject/inject.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/controllers/aluno_controller.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/controllers/notas_controler.dart';
-
 import 'package:get_it/get_it.dart';
 
 void main() async {
@@ -22,7 +21,7 @@ void main() async {
   FlutterSecureStorage storage = FlutterSecureStorage();
 
   String matricula = "";
-  bool autoLogin = (await storage.read(key: 'autoLogin')) == 'true';
+  final bool autoLogin = (await storage.read(key: 'autoLogin')) == 'true';
 
   AlunoController alunoController = GetIt.instance.get<AlunoController>();
   NotasController notasController = GetIt.instance.get<NotasController>();
@@ -58,7 +57,7 @@ class IFG_Mobile_Estudante extends StatelessWidget {
             create: (_) => AutoLoginProvider(
                   _autoLogin,
                 )),
-        ChangeNotifierProvider(create: (_) => AlreadAutoLogged()),
+        ChangeNotifierProvider(create: (_) => AlreadyAutoLogged()),
         ChangeNotifierProvider(
             create: (_) => AlunoControlerProvider(_alunoController)),
         ChangeNotifierProvider(

@@ -10,7 +10,7 @@ import 'package:ifg_mobile_estudante/layers/domain/repositories/get_notas_do_alu
 import 'package:ifg_mobile_estudante/layers/domain/usecases/get_aluno_por_matricula_usecase/get_aluno_por_matricula_usecase.dart';
 import 'package:ifg_mobile_estudante/layers/domain/usecases/get_aluno_por_matricula_usecase/get_aluno_por_matricula_usecase_IMPL.dart';
 import 'package:ifg_mobile_estudante/layers/domain/usecases/get_notas_do_aluno_por_matricula_usecase/get_notas_do_aluno_por_matricula_use_case.dart';
-import 'package:ifg_mobile_estudante/layers/domain/usecases/get_notas_do_aluno_por_matricula_usecase/get_notas_do_aluno_por_matricula_usecase.dart';
+import 'package:ifg_mobile_estudante/layers/domain/usecases/get_notas_do_aluno_por_matricula_usecase/get_notas_do_aluno_por_matricula_usecase_IMPL.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/controllers/aluno_controller.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/controllers/notas_controler.dart';
 

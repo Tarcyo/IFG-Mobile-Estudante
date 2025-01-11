@@ -1,48 +1,23 @@
 import 'package:flutter/material.dart';
-import 'question_card.dart';
-import 'answer_screen.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
-class QuestionsList extends StatefulWidget {
-  final Map<String, dynamic> _data;
 
-  QuestionsList(this._data, {Key? key}) : super(key: key);
+class AnswerScreen extends StatefulWidget {
+  final String _question;
+  final String _answer;
+
+  AnswerScreen(
+    this._question,
+    this._answer, {
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _QuestionsListState createState() => _QuestionsListState();
+  _AnswerScreenState createState() => _AnswerScreenState();
 }
 
-class _QuestionsListState extends State<QuestionsList> {
-  late List<Widget> _questions;
-
+class _AnswerScreenState extends State<AnswerScreen> {
   @override
-  void initState() {
-    super.initState();
-    _loadQuestions();
-  }
-
-  void _loadQuestions() {
-    _questions = [];
-    final List<String> keys = widget._data.keys.toList();
-    for (String key in keys) {
-      _questions.add(
-        QuestionCard(key, onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AnswerScreen(key, widget._data[key]),
-            ),
-          );
-        }),
-      );
-      _questions.add(const SizedBox(
-        width: 40,
-        height: 40,
-      ));
-    }
-  }
-
-@override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -106,10 +81,15 @@ class _QuestionsListState extends State<QuestionsList> {
             SizedBox(
               height: screenWidth * 0.0375,
             ),
-            Text(
-              "Qual é sua dúvida?",
-              style:
-                  TextStyle(fontSize: screenWidth * 0.055, color: backgroundColor),
+            Center(
+              child: Text(
+                widget._question,
+                style: TextStyle(
+                    fontSize: screenWidth * 0.055, color: backgroundColor),
+                textAlign: TextAlign.center,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),
@@ -117,22 +97,52 @@ class _QuestionsListState extends State<QuestionsList> {
     );
   }
 
-  Widget _body(BuildContext context, screenWidth, screenHeight) {
-    if (_questions.isEmpty) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      return Column(
+  Widget _body(context, screenWidth, screenHeight) {
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: screenWidth * 0.0125,
-            height: screenHeight * 0.02,
+            width: screenWidth * 0.025,
+            height: screenHeight * 0.025,
           ),
-          ..._questions,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                color: focusBackgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  width: screenWidth * 0.888,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Resposta",
+                        style: TextStyle(
+                            color: mainColor, fontSize: screenWidth * 0.055),
+                        softWrap: true,
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.025,
+                        height: screenHeight * 0.015,
+                      ),
+                      Text(widget._answer,
+                          style: TextStyle(
+                              color: messageTextColor,
+                              fontSize: screenWidth * 0.032))
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
-      );
-    }
+      ),
+    );
   }
 }

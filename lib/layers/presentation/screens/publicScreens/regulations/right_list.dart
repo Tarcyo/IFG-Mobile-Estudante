@@ -1,44 +1,42 @@
 import 'package:flutter/material.dart';
-import 'question_card.dart';
-import 'answer_screen.dart';
+import 'right_card.dart';
+import 'right_screen.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
-class QuestionsList extends StatefulWidget {
+
+class RightList extends StatefulWidget {
   final Map<String, dynamic> _data;
 
-  QuestionsList(this._data, {Key? key}) : super(key: key);
+  RightList(this._data, {Key? key}) : super(key: key);
 
   @override
-  _QuestionsListState createState() => _QuestionsListState();
+  _RightListState createState() => _RightListState();
 }
 
-class _QuestionsListState extends State<QuestionsList> {
-  late List<Widget> _questions;
+class _RightListState extends State<RightList> {
+  late List<Widget> _rules;
 
   @override
   void initState() {
     super.initState();
-    _loadQuestions();
+    _loadRules();
   }
 
-  void _loadQuestions() {
-    _questions = [];
+  void _loadRules() {
+    _rules = [];
     final List<String> keys = widget._data.keys.toList();
     for (String key in keys) {
-      _questions.add(
-        QuestionCard(key, onTap: () {
+      _rules.add(
+        RightCard(key, onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AnswerScreen(key, widget._data[key]),
+              builder: (context) => RightScreen(key, widget._data[key]),
             ),
           );
         }),
       );
-      _questions.add(const SizedBox(
-        width: 40,
-        height: 40,
-      ));
+      _rules.add(SizedBox(width: 40, height: 40));
     }
   }
 
@@ -64,7 +62,8 @@ class _QuestionsListState extends State<QuestionsList> {
     );
   }
 
-  Widget _header(BuildContext context, screenWidth, screenHeight) {
+  Widget _header(
+      BuildContext context, double screenWidth, double screenHeight) {
     return HeaderBuilderWidget(
       left: IconButton(
         icon: Icon(
@@ -90,14 +89,14 @@ class _QuestionsListState extends State<QuestionsList> {
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.0125),
           child: Icon(
-            Icons.question_mark,
-            size: screenHeight * 0.1,
+            Icons.task,
+            size: screenWidth * 0.15,
             color: mainColor,
           ),
         ),
       ),
       top: Text(
-        "Dúvidas Frequentes",
+        "Direitos e Deveres",
         style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
       ),
       bottom: Center(
@@ -107,7 +106,7 @@ class _QuestionsListState extends State<QuestionsList> {
               height: screenWidth * 0.0375,
             ),
             Text(
-              "Qual é sua dúvida?",
+              "Selecione o tópico",
               style:
                   TextStyle(fontSize: screenWidth * 0.055, color: backgroundColor),
             ),
@@ -117,8 +116,8 @@ class _QuestionsListState extends State<QuestionsList> {
     );
   }
 
-  Widget _body(BuildContext context, screenWidth, screenHeight) {
-    if (_questions.isEmpty) {
+  Widget _body(BuildContext context, double screenWidth,double height) {
+    if (_rules.isEmpty) {
       return Center(
         child: CircularProgressIndicator(),
       );
@@ -128,9 +127,9 @@ class _QuestionsListState extends State<QuestionsList> {
         children: [
           SizedBox(
             width: screenWidth * 0.0125,
-            height: screenHeight * 0.02,
+            height: screenWidth * 0.0125,
           ),
-          ..._questions,
+          ..._rules,
         ],
       );
     }
