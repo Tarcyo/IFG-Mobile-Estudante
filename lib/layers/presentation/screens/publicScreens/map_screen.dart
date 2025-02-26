@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class MapScreen extends StatelessWidget {
   @override
@@ -30,7 +29,7 @@ class MapScreen extends StatelessWidget {
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.05,
         ),
         onPressed: () => Navigator.of(context).pop(),
@@ -45,19 +44,19 @@ class MapScreen extends StatelessWidget {
         width: screenHeight * 0.25,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
+          color: Colors.white,
         ),
         child: Center(
           child: Icon(
             Icons.map,
             size: screenHeight * 0.15,
-            color: mainColor,
+            color: Colors.teal.shade900,
           ),
         ),
       ),
       top: Text(
         "Mapa do IFG",
-        style: TextStyle(fontSize: screenWidth * 0.04, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.04, color: Colors.white),
       ),
       bottom: SizedBox(
         width: 1,

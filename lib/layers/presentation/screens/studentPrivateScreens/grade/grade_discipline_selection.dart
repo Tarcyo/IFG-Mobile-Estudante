@@ -3,7 +3,6 @@ import 'package:ifg_mobile_estudante/layers/presentation/providers/notas_list_co
 import 'package:provider/provider.dart';
 import 'grade_discipline_card.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class GradeDisciplineScreen extends StatefulWidget {
   GradeDisciplineScreen({Key? key}) : super(key: key);
@@ -39,7 +38,7 @@ class _GradeDisciplineScreenState extends State<GradeDisciplineScreen>
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -66,7 +65,7 @@ class _GradeDisciplineScreenState extends State<GradeDisciplineScreen>
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => Navigator.of(context).pop(),
@@ -74,7 +73,7 @@ class _GradeDisciplineScreenState extends State<GradeDisciplineScreen>
       right: IconButton(
         icon: Icon(
           Icons.help_outline,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {
@@ -82,64 +81,86 @@ class _GradeDisciplineScreenState extends State<GradeDisciplineScreen>
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                backgroundColor: backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Ajuda",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.055,
-                        fontWeight: FontWeight.bold,
-                        color: mainColor,
-                      ),
+                backgroundColor: Colors
+                    .transparent, // Fundo transparente para aplicar o design personalizado
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                  ],
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Aqui você pode selecionar o ano na parte superir da tela e então selecionar a disciplina que deseja ver suas notas.",
-                      style: TextStyle(
-                        color: messageTextColor,
-                        fontSize: screenWidth * 0.032,
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
                       ),
-                    ),
-                  ],
-                ),
-                actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    ],
+                  ),
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Título com emoji
+                      Text(
+                        "Ajuda",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      // Conteúdo do pop-up com emojis para os títulos principais
+                      Text(
+                        "🗓 Seleção de Ano & 📚 Disciplina:\n\n"
+                        "Selecione o ano na parte superior da tela e, em seguida, escolha a disciplina que deseja ver suas notas.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.032,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      // Botão de ação centralizado
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
+                          backgroundColor: Colors.teal.shade400,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(180.0),
                           ),
                         ),
                         onPressed: () {
-                          // Fechar o diálogo sem sair
                           Navigator.of(context).pop();
                         },
-                        child: Text(
-                          "Ok",
-                          style: TextStyle(
-                            color: backgroundColor,
-                            fontSize: screenWidth * 0.032,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                ],
+                ),
               );
             },
-          )
+          ),
         },
       ),
       center: Container(
@@ -147,30 +168,30 @@ class _GradeDisciplineScreenState extends State<GradeDisciplineScreen>
         width: screenHeight * 0.15,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
-          border: Border.all(color: mainColor, width: 1),
+          color: Colors.white,
+          border: Border.all(color: Colors.white, width: 1),
         ),
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.02),
           child: Icon(
             Icons.emoji_events,
             size: screenHeight * 0.1,
-            color: mainColor,
+            color: Colors.teal.shade900,
           ),
         ),
       ),
       top: Text(
         "Minhas notas",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: Center(
         child: TabBar(
           tabAlignment: TabAlignment.center,
           controller: _tabController,
           isScrollable: true,
-          labelColor: backgroundColor,
+          labelColor: Colors.white,
           unselectedLabelColor: Colors.greenAccent[100],
-          indicatorColor: backgroundColor,
+          indicatorColor: Colors.white,
           dividerColor: Colors.transparent,
           indicatorPadding: EdgeInsets.zero,
           tabs: widget.yearsOfReport
@@ -193,39 +214,22 @@ class _GradeDisciplineScreenState extends State<GradeDisciplineScreen>
   }
 
   Widget _buildItem(BuildContext context, screenWidth, screenHeight) {
+    final notasProvider =
+        Provider.of<NotasControlerProvider>(context, listen: false);
 
-    final notasProvider= Provider.of<NotasControlerProvider>(context, listen: false);
+    final notasDoAluno = notasProvider.controller.notas;
 
-    final notasDoAluno= notasProvider.controller.notas;
+    print("as notas do aluno são:" + notasDoAluno.toString());
 
-    print("as notas do aluno são:"+notasDoAluno.toString());
-  
     final List<Widget> disciplines = [];
     for (final dicipline_data in notasDoAluno!) {
-   
       disciplines.add(GradeDisciplineCard(dicipline_data));
     }
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: screenWidth * 0.05,
-            height: screenWidth * 0.05,
-          ),
-          Center(
-            child: Text(
-              "Selecione a disciplina: ",
-              style: TextStyle(fontSize: screenWidth * 0.05, color: mainColor),
-            ),
-          ),
-          SizedBox(
-            width: screenWidth * 0.05,
-            height: screenWidth * 0.05,
-          ),
-          ...disciplines
-        ],
+        children: [...disciplines],
       ),
     );
   }

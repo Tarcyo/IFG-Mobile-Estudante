@@ -3,8 +3,6 @@ import 'package:ifg_mobile_estudante/core/utils/url_launcher_helper.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/horizontal_regular_button_widget.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/very_long_horizontal_button.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/horizontal_borderless_button_widget.dart';
 import 'rectory_message_screen.dart';
 import 'dart:convert' show json;
 import 'package:flutter/services.dart' show rootBundle;
@@ -19,7 +17,7 @@ class RectoryScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -39,7 +37,7 @@ class RectoryScreen extends StatelessWidget {
         left: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: backgroundColor,
+            color: Colors.white,
             size: screenWidth * 0.08,
           ),
           onPressed: () {
@@ -57,15 +55,16 @@ class RectoryScreen extends StatelessWidget {
             width: screenHeight * 0.15,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: backgroundColor,
-              border: Border.all(color: mainColor, width: screenWidth * 0.0025),
+              color: Colors.white,
+              border:
+                  Border.all(color: Colors.white, width: screenWidth * 0.0025),
             ),
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.00125),
               child: Icon(
                 Icons.assignment_ind_rounded,
                 size: screenHeight * 0.1,
-                color: mainColor,
+                color: Colors.teal.shade900,
               ),
             ),
           ),
@@ -74,7 +73,7 @@ class RectoryScreen extends StatelessWidget {
           child: Text(
             "Reitoria",
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: backgroundColor,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: screenWidth * 0.06),
           ),
@@ -87,7 +86,6 @@ class RectoryScreen extends StatelessWidget {
   Widget _body(BuildContext context, screenWidth, screenHeight) {
     return Container(
       padding: const EdgeInsets.only(bottom: 10),
-      color: backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -100,7 +98,7 @@ class RectoryScreen extends StatelessWidget {
             child: Column(
               children: [
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  HorizontalBorderlessButtonWidget(
+                  HorizontalButtonWidget(
                     'Mensagem \nda reitoria',
                     Icons.message,
                     onPressed: () async {

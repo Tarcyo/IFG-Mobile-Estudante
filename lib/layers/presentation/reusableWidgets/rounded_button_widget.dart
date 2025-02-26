@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class RoundedButtonWidget extends StatelessWidget {
   final String text;
@@ -19,19 +18,37 @@ class RoundedButtonWidget extends StatelessWidget {
       width: screenWidth * 0.3,
       height: screenWidth * 0.12,
       decoration: BoxDecoration(
-        color: mainColor,
-        borderRadius: BorderRadius.circular(screenWidth * 0.3),
+        gradient: LinearGradient(
+          colors: [
+            Colors.green.shade100,
+            Colors.green.shade700,
+            Colors.teal.shade900,
+          ],
+          stops: const [0.1, 0.5, 0.9],
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+        ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(screenWidth * 0.13),
+          topRight: Radius.circular(screenWidth * 0.13),
+        ),
+        border: const Border(
+          bottom: BorderSide(
+            color: Colors.transparent,
+            width: 5.0,
+          ),
+        ),
       ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
-          backgroundColor: mainColor,
+          backgroundColor: Colors.teal.shade900,
           elevation: 1.5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(screenWidth * 180),
           ),
-          foregroundColor: backgroundColor,
+          foregroundColor: Colors.white,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,8 +56,8 @@ class RoundedButtonWidget extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: backgroundColor, fontSize: screenWidth * 0.05),
+              style:
+                  TextStyle(color: Colors.white, fontSize: screenWidth * 0.05),
             ),
           ],
         ),

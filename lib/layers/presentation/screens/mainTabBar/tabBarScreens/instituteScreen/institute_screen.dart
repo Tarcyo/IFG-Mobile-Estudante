@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/horizontal_borderless_button_widget.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/horizontal_regular_button_widget.dart';
 import 'institute_screen_campi_card.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/very_long_horizontal_button.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
@@ -9,7 +9,6 @@ import 'dart:convert' show json;
 import 'package:ifg_mobile_estudante/layers/presentation/screens/publicScreens/rectory/rectory_screen.dart';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class InstituteScreen extends StatelessWidget {
   InstituteScreen({Key? key});
@@ -21,7 +20,7 @@ class InstituteScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -42,7 +41,7 @@ class InstituteScreen extends StatelessWidget {
       left: IconButton(
         icon: Icon(
           Icons.logout,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {
@@ -50,87 +49,109 @@ class InstituteScreen extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                backgroundColor: backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Atenção",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: mainColor,
-                      ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                  ],
-                ),
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Deseja realmente sair?",
-                      style: TextStyle(
-                        color: messageTextColor,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ],
-                ),
-                actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(180.0),
-                          ),
-                        ),
-                        onPressed: () {
-                          exit(0);
-                        },
-                        child: Text(
-                          "Sim",
-                          style: TextStyle(
-                            color: backgroundColor,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(180.0),
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          "Não",
-                          style: TextStyle(
-                            color: backgroundColor,
-                            fontSize: 13,
-                          ),
-                        ),
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
                       ),
                     ],
                   ),
-                ],
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Atenção",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      // Mensagem centralizada
+                      Text(
+                        "Deseja realmente sair?",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.032,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red.shade600,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(180.0),
+                              ),
+                            ),
+                            onPressed: () {
+                              exit(0);
+                            },
+                            child: Text(
+                              "Sim",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth * 0.032,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.teal.shade400,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(180.0),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Não",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth * 0.032,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
-          )
+          ),
         },
       ),
       right: IconButton(
         icon: Icon(
           Icons.help_outline,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {
@@ -138,44 +159,59 @@ class InstituteScreen extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                backgroundColor: backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Ajuda",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.055,
-                        fontWeight: FontWeight.bold,
-                        color: mainColor,
-                      ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                  ],
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Para ver a história do instituto, clique em histórico, "
-                      "\n\nPara ver informações e contatos da reitoria clique em reitoria"
-                      "\n\nPara visualizar informações de um campus, clique no botão do respectivo Campus.",
-                      style: TextStyle(
-                        color: messageTextColor,
-                        fontSize: screenWidth * 0.032,
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
                       ),
-                    ),
-                  ],
-                ),
-                actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    ],
+                  ),
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Título centralizado
+                      Text(
+                        "Ajuda",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Text(
+                        "Para ver a história do instituto, clique em histórico, "
+                        "\n\nPara ver informações e contatos da reitoria clique em reitoria"
+                        "\n\nPara visualizar informações de um campus, clique no botão do respectivo Campus.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.032,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
+                          backgroundColor: Colors.teal.shade400,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(180.0),
                           ),
@@ -186,14 +222,15 @@ class InstituteScreen extends StatelessWidget {
                         child: Text(
                           "Ok",
                           style: TextStyle(
-                            color: backgroundColor,
+                            color: Colors.white,
                             fontSize: screenWidth * 0.032,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ],
                   ),
-                ],
+                ),
               );
             },
           )
@@ -205,22 +242,23 @@ class InstituteScreen extends StatelessWidget {
           width: screenHeight * 0.15,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: backgroundColor,
-            border: Border.all(color: mainColor, width: screenWidth * 0.0025),
+            color: Colors.white,
+            border:
+                Border.all(color: Colors.white, width: screenWidth * 0.0025),
           ),
           child: Padding(
             padding: EdgeInsets.all(screenWidth * 0.00125),
             child: Icon(
               Icons.business,
               size: screenHeight * 0.08,
-              color: mainColor,
+              color: Colors.teal.shade900,
             ),
           ),
         ),
       ),
       top: Text(
         "Instituição",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: const SizedBox(width: 1),
     );
@@ -229,16 +267,27 @@ class InstituteScreen extends StatelessWidget {
   Widget _body(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
       padding: EdgeInsets.only(bottom: screenHeight * 0.01),
-      color: backgroundColor,
+      color: Colors.transparent,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: screenHeight * 0.015),
+          VeryLongHorizontalButtonWidget(
+            "Mapa do IFG",
+            Icons.map,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MapScreen(),
+              ),
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.015),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              HorizontalBorderlessButtonWidget(
+              HorizontalButtonWidget(
                 "Histórico \ndo IFG",
                 Icons.history,
                 onPressed: () async {
@@ -258,7 +307,7 @@ class InstituteScreen extends StatelessWidget {
                 },
               ),
               SizedBox(width: screenWidth * 0.02),
-              HorizontalBorderlessButtonWidget(
+              HorizontalButtonWidget(
                 'Reitoria',
                 Icons.assignment_ind,
                 onPressed: () => Navigator.push(
@@ -269,17 +318,6 @@ class InstituteScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          SizedBox(height: screenHeight * 0.015),
-          VeryLongHorizontalButtonWidget(
-            "Mapa do IFG",
-            Icons.map,
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MapScreen(),
-              ),
-            ),
           ),
           SizedBox(height: screenHeight * 0.015),
           Wrap(

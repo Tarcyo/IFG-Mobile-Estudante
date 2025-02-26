@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'report_card.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class ReportScreen extends StatefulWidget {
   ReportScreen({Key? key}) : super(key: key);
@@ -37,7 +36,7 @@ class _ReportScreenState extends State<ReportScreen>
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -65,7 +64,7 @@ class _ReportScreenState extends State<ReportScreen>
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => Navigator.of(context).pop(),
@@ -73,7 +72,7 @@ class _ReportScreenState extends State<ReportScreen>
       right: IconButton(
         icon: Icon(
           Icons.help_outline,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {
@@ -81,64 +80,93 @@ class _ReportScreenState extends State<ReportScreen>
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                backgroundColor: backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Ajuda",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.055,
-                        fontWeight: FontWeight.bold,
-                        color: mainColor,
-                      ),
+                backgroundColor: Colors
+                    .transparent, // Fundo transparente para aplicar o design personalizado
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                  ],
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Seleção de Ano: Utilize a barra de navegação na parte superior da tela para selecionar o ano do boletim que deseja visualizar.\n\nSituação: Cada disciplina listada no boletim possui uma indicação de situação. Isso pode ser 'Aprovado', 'Reprovado' ou 'Cursando'.\n\nMédia Final: Ao lado da situação, você encontrará a média final obtida na disciplina. Essa é uma representação do seu desempenho ao longo do ano letivo.\n\nFaltas: A quantidade de faltas registradas na disciplina e máximo permitido de faltas. Se você estiver próximo do limite máximo de faltas e houver risco de reprovação por falta, um alerta será exibido para avisá-lo(a).",
-                      style: TextStyle(
-                        color: messageTextColor,
-                        fontSize: screenWidth * 0.032,
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
                       ),
-                    ),
-                  ],
-                ),
-                actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    ],
+                  ),
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Título centralizado
+                      Text(
+                        "Ajuda",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      // Conteúdo do pop-up com emojis para os títulos principais
+                      Text(
+                        "📆 Seleção de Ano:\n"
+                        "➡ Utilize a barra de navegação na parte superior para selecionar o ano do boletim.\n\n"
+                        "📋 Situação:\n"
+                        "➡ Cada disciplina possui uma indicação: 'Aprovado', 'Reprovado' ou 'Cursando'.\n\n"
+                        "📊 Média Final:\n"
+                        "➡ Ao lado da situação, você verá a média final obtida, refletindo seu desempenho.\n\n"
+                        "🚫 Faltas:\n"
+                        "➡ Indica a quantidade de faltas registradas e o máximo permitido.\n"
+                        "➡ Se estiver próximo do limite, um alerta será exibido.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.032,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      // Botão de ação centralizado
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
+                          backgroundColor: Colors.teal.shade400,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(180.0),
                           ),
                         ),
                         onPressed: () {
-                          // Fechar o diálogo sem sair
                           Navigator.of(context).pop();
                         },
-                        child: Text(
-                          "Ok",
-                          style: TextStyle(
-                            color: backgroundColor,
-                            fontSize: screenWidth * 0.032,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                ],
+                ),
               );
             },
-          )
+          ),
         },
       ),
       center: Center(
@@ -147,8 +175,8 @@ class _ReportScreenState extends State<ReportScreen>
           width: screenHeight * 0.15,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: backgroundColor,
-            border: Border.all(color: mainColor, width: 1),
+            color: Colors.white,
+            border: Border.all(color: Colors.white, width: 1),
           ),
           child: Padding(
             padding: EdgeInsets.all(screenWidth * 0.025),
@@ -158,7 +186,7 @@ class _ReportScreenState extends State<ReportScreen>
                 Icon(
                   Icons.assignment,
                   size: screenHeight * 0.1,
-                  color: mainColor,
+                  color: Colors.teal.shade900,
                 ),
               ],
             ),
@@ -167,16 +195,16 @@ class _ReportScreenState extends State<ReportScreen>
       ),
       top: Text(
         "Boletim",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: Center(
         child: TabBar(
           tabAlignment: TabAlignment.center,
           controller: _tabController,
           isScrollable: true,
-          labelColor: backgroundColor,
+          labelColor: Colors.white,
           unselectedLabelColor: Colors.greenAccent[100],
-          indicatorColor: backgroundColor,
+          indicatorColor: Colors.white,
           dividerColor: Colors.transparent,
           indicatorPadding: EdgeInsets.zero,
           tabs: widget.yearsOfReport

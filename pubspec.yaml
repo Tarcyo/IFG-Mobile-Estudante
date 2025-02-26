@@ -4,7 +4,7 @@ description: "Aplicativo dos estudantes do Instituto Federal De Goiás."
 publish_to: 'none' 
 
 environment:
-  sdk:  ^3.6.0
+  sdk:  ^	3.7.0
 
 dev_dependencies:
   flutter_test:
@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.3.1
-  http: ^1.2.2 
+  http: ^1.3.0
   get_it: ^8.0.3
   flutter_secure_storage: ^9.2.4
   provider: ^6.1.2

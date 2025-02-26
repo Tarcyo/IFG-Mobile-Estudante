@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class VerticalButtonWidget extends StatelessWidget {
   final String text;
@@ -16,45 +15,68 @@ class VerticalButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final buttonSize = screenWidth * 0.20;
+    final borderRadiusValue = buttonSize / 2;
 
     return Container(
-      margin: EdgeInsets.only(right: 2),
+      margin: const EdgeInsets.only(right: 2),
       width: screenWidth * 0.19,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: onPressed,
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  backgroundColor: focusBackgroundColor,
-                  elevation: 1.5,
-                  fixedSize: Size(screenWidth * 0.20, screenWidth * 0.20),
-                  foregroundColor: onTapButtonColor,
+          Container(
+            width: buttonSize,
+            height: buttonSize,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadiusValue),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.teal.shade900,
+                  Colors.green.shade600,
+                  Colors.teal.shade900,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  offset: const Offset(4, 4),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      aboveIcon,
-                      color: mainColor,
-                      size: screenWidth * 0.08,
-                    ),
-                    Text(
-                      text,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.029,
-                        color: messageTextColor,
-                      ),
-                    ),
-                  ],
+              ],
+            ),
+            child: ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.zero,
+                backgroundColor: Colors
+                    .transparent, // Fundo transparente para exibir o degradê
+                elevation:
+                    0, // Remove elevação extra para não sobrepor a sombra do Container
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadiusValue),
                 ),
               ),
-            ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    aboveIcon,
+                    color: Colors.white,
+                    size: screenWidth * 0.08,
+                  ),
+                  Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.029,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

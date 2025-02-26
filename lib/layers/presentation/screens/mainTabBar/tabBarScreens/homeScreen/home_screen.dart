@@ -1,3 +1,5 @@
+import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/rounded_button_widget.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ifg_mobile_estudante/core/utils/url_launcher_helper.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/providers/aluno_entity_controller_provider.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/horizontal_regular_button_widget.dart';
@@ -8,10 +10,7 @@ import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/very_long_horizontal_button.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/screens/studentPrivateScreens/student_screen.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/rounded_button_widget.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:io';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/providers/already_auto_logged_bool_provider.dart';
@@ -44,7 +43,7 @@ class HomeScreen extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                backgroundColor: backgroundColor,
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32.0),
                 ),
@@ -56,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: screenWidth * 0.055,
                         fontWeight: FontWeight.bold,
-                        color: mainColor,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -67,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                     Text(
                       "Falha ao tentar conectar.\nVerifique seus dados e tente novamente.",
                       style: TextStyle(
-                        color: messageTextColor,
+                        color: Colors.white,
                         fontSize: screenWidth * 0.032,
                       ),
                     ),
@@ -79,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(180.0),
                           ),
@@ -90,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                         child: Text(
                           "Ok",
                           style: TextStyle(
-                            color: backgroundColor,
+                            color: Colors.white,
                             fontSize: screenWidth * 0.032,
                           ),
                         ),
@@ -113,7 +112,7 @@ class HomeScreen extends StatelessWidget {
     }
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -134,7 +133,7 @@ Widget _header(BuildContext context, double screenWidth, double screenHeight) {
     left: IconButton(
       icon: Icon(
         Icons.logout,
-        color: backgroundColor,
+        color: Colors.white,
         size: screenWidth * 0.08,
       ),
       onPressed: () => {
@@ -142,87 +141,113 @@ Widget _header(BuildContext context, double screenWidth, double screenHeight) {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32.0),
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Atenção",
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.055,
-                      fontWeight: FontWeight.bold,
-                      color: mainColor,
-                    ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              contentPadding: EdgeInsets.zero,
+              content: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.teal.shade900,
+                      Colors.green.shade800,
+                      Colors.teal.shade900,
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
                   ),
-                ],
-              ),
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Deseja realmente sair?",
-                    style: TextStyle(
-                      color: messageTextColor,
-                      fontSize: screenWidth * 0.032,
-                    ),
-                  ),
-                ],
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: mainColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(180.0),
-                        ),
-                      ),
-                      onPressed: () {
-                        exit(0);
-                      },
-                      child: Text(
-                        "Sim",
-                        style: TextStyle(
-                          color: backgroundColor,
-                          fontSize: screenWidth * 0.032,
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: mainColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(180.0),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        "Não",
-                        style: TextStyle(
-                          color: backgroundColor,
-                          fontSize: screenWidth * 0.032,
-                        ),
-                      ),
+                  borderRadius: BorderRadius.circular(32.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      blurRadius: 10,
+                      offset: const Offset(4, 4),
                     ),
                   ],
                 ),
-              ],
+                padding: EdgeInsets.all(screenWidth * 0.045),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Título centralizado
+                    Text(
+                      "Atenção",
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.055,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    // Mensagem centralizada
+                    Text(
+                      "Deseja realmente sair?",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.032,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    // Botões de ação
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors
+                                .red.shade600, // Vermelho para ação crítica
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(180.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            exit(0);
+                          },
+                          child: Text(
+                            "Sim",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors
+                                .teal.shade400, // Verde/Teal para consistência
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(180.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            "Não",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             );
           },
-        )
+        ),
       },
     ),
     right: IconButton(
       icon: Icon(
         Icons.help_outline,
-        color: backgroundColor,
+        color: Colors.white,
         size: screenWidth * 0.08,
       ),
       onPressed: () => {
@@ -230,45 +255,61 @@ Widget _header(BuildContext context, double screenWidth, double screenHeight) {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32.0),
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Ajuda",
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.055,
-                      fontWeight: FontWeight.bold,
-                      color: mainColor,
-                    ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              contentPadding: EdgeInsets.zero,
+              content: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.teal.shade900,
+                      Colors.green.shade800,
+                      Colors.teal.shade900,
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
                   ),
-                ],
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Para acessar informações importantes sobre seus direitos e deveres, "
-                    "clique nos botões 'Direitos dos Alunos' ou 'Dúvidas Frequentes'."
-                    "\n\nAcessar páginas importantes do instituto clique nos botões no centro da tela"
-                    "\n\nPara visualizar suas notas, faltas, materiais, clique no botão 'Painel do Estudante'.",
-                    style: TextStyle(
-                      color: messageTextColor,
-                      fontSize: screenWidth * 0.032,
+                  borderRadius: BorderRadius.circular(32.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      blurRadius: 10,
+                      offset: const Offset(4, 4),
                     ),
-                  ),
-                ],
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  ],
+                ),
+                padding: EdgeInsets.all(screenWidth * 0.045),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Título centralizado
+                    Text(
+                      "Ajuda",
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.055,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    Text(
+                      "Para acessar informações importantes sobre seus direitos e deveres, "
+                      "clique nos botões 'Direitos dos Alunos' ou 'Dúvidas Frequentes'."
+                      "\n\nAcessar páginas importantes do instituto clique nos botões no centro da tela"
+                      "\n\nPara visualizar suas notas, faltas, materiais, clique no botão 'Painel do Estudante'.",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.032,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    // Botão de ação
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: mainColor,
+                        backgroundColor: Colors.teal.shade400,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(180.0),
                         ),
@@ -279,47 +320,35 @@ Widget _header(BuildContext context, double screenWidth, double screenHeight) {
                       child: Text(
                         "Ok",
                         style: TextStyle(
-                          color: backgroundColor,
+                          color: Colors.white,
                           fontSize: screenWidth * 0.032,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
+              ),
             );
           },
-        )
+        ),
       },
     ),
-    center: MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? Container(
-            height: screenHeight * 0.15,
-            width: screenHeight * 0.15,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/images/logo B-dark.png'),
-                fit: BoxFit.contain,
-              ),
-            ),
-          )
-        : Container(
-            height: screenHeight * 0.15,
-            width: screenHeight * 0.15,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/images/logo B.png'),
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
+    center: Container(
+      height: screenHeight * 0.15,
+      width: screenHeight * 0.15,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: AssetImage('assets/images/logo B.png'),
+          fit: BoxFit.contain,
+        ),
+      ),
+    ),
     top: Text(
       "IFG Mobile Estudante",
-      style: TextStyle(fontSize: screenWidth * 0.05, color: backgroundColor),
+      style: TextStyle(fontSize: screenWidth * 0.05, color: Colors.white),
     ),
     bottom: const SizedBox(width: 1),
   );
@@ -329,7 +358,6 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
   return Center(
     child: Container(
       padding: EdgeInsets.only(bottom: screenHeight * 0.01),
-      color: backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -364,7 +392,7 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
 
                       showModalBottomSheet(
                         isDismissible: false,
-                        backgroundColor: focusBackgroundColor,
+                        backgroundColor: Colors.transparent,
                         context: context,
                         isScrollControlled: true,
                         builder: (BuildContext context) {
@@ -372,7 +400,30 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                             alignment: Alignment.topRight,
                             children: [
                               Container(
-                                color: Colors.transparent,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.green.shade100,
+                                      Colors.green.shade600,
+                                      Colors.green.shade900,
+                                    ],
+                                    stops: const [0.1, 0.5, 0.9],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft:
+                                        Radius.circular(screenWidth * 0.13),
+                                    topRight:
+                                        Radius.circular(screenWidth * 0.13),
+                                  ),
+                                  border: const Border(
+                                    bottom: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 5.0,
+                                    ),
+                                  ),
+                                ),
                                 padding: EdgeInsets.only(
                                   top: 50,
                                   left: 20,
@@ -389,35 +440,35 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                       Icon(
                                         Icons.lock,
                                         size: screenWidth * 0.2,
-                                        color: mainColor,
+                                        color: Colors.white,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
                                         'Requer autenticação',
                                         style: TextStyle(
                                           fontSize: screenWidth * 0.06,
-                                          color: mainColor,
+                                          color: Colors.white,
                                         ),
                                       ),
                                       SizedBox(height: screenHeight * 0.01),
                                       TextField(
                                         keyboardType: TextInputType.number,
                                         style: TextStyle(
-                                          color: messageTextColor,
+                                          color: Colors.white,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'Matrícula',
                                           labelStyle: TextStyle(
-                                            color: mainColor,
+                                            color: Colors.white,
                                             fontSize: screenWidth * 0.05,
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide:
-                                                BorderSide(color: mainColor),
+                                                BorderSide(color: Colors.white),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide:
-                                                BorderSide(color: mainColor),
+                                                BorderSide(color: Colors.white),
                                           ),
                                         ),
                                         controller: matriculaController,
@@ -425,7 +476,7 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                       SizedBox(height: screenHeight * 0.025),
                                       PasswordField(
                                         labelText: "Senha",
-                                        color: mainColor,
+                                        color: Colors.white,
                                         controller: senhaController,
                                       ),
                                       SizedBox(height: screenHeight * 0.025),
@@ -443,7 +494,7 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                             'Lembrar meus dados',
                                             style: TextStyle(
                                               fontSize: screenWidth * 0.025,
-                                              color: mainColor,
+                                              color: Colors.white,
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -465,7 +516,7 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                             'Fazer login automaticamente ao entrar',
                                             style: TextStyle(
                                               fontSize: screenWidth * 0.025,
-                                              color: mainColor,
+                                              color: Colors.white,
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: false,
@@ -598,60 +649,100 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                                       (BuildContext context) {
                                                     return AlertDialog(
                                                       backgroundColor:
-                                                          backgroundColor,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(32.0),
-                                                      ),
-                                                      title: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            "Atenção",
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  screenWidth *
-                                                                      0.055,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: mainColor,
-                                                            ),
+                                                          Colors.transparent,
+                                                      elevation: 0,
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      content: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          gradient:
+                                                              LinearGradient(
+                                                            colors: [
+                                                              Colors.teal
+                                                                  .shade900,
+                                                              Colors.green
+                                                                  .shade800,
+                                                              Colors.teal
+                                                                  .shade900,
+                                                            ],
+                                                            begin: Alignment
+                                                                .bottomCenter,
+                                                            end: Alignment
+                                                                .topCenter,
                                                           ),
-                                                        ],
-                                                      ),
-                                                      content: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          Text(
-                                                            "Falha ao tentar conectar.\nVerifique seus dados e tente novamente.",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  messageTextColor,
-                                                              fontSize:
-                                                                  screenWidth *
-                                                                      0.032,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      32.0),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors
+                                                                  .black
+                                                                  .withValues(
+                                                                      alpha:
+                                                                          0.3),
+                                                              blurRadius: 10,
+                                                              offset:
+                                                                  const Offset(
+                                                                      4, 4),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      actions: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                          ],
+                                                        ),
+                                                        padding: EdgeInsets.all(
+                                                            screenWidth *
+                                                                0.045),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
                                                           children: [
+                                                            // Título
+                                                            Text(
+                                                              "Atenção",
+                                                              style: TextStyle(
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.055,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    screenHeight *
+                                                                        0.02),
+                                                            // Mensagem de erro
+                                                            Text(
+                                                              "Falha ao tentar conectar.\nVerifique seus dados e tente novamente.",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.032,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    screenHeight *
+                                                                        0.03),
+                                                            // Botão "Ok"
                                                             ElevatedButton(
                                                               style:
                                                                   ElevatedButton
                                                                       .styleFrom(
                                                                 backgroundColor:
-                                                                    mainColor,
+                                                                    Colors.teal
+                                                                        .shade400,
                                                                 shape:
                                                                     RoundedRectangleBorder(
                                                                   borderRadius:
@@ -669,17 +760,20 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                                                 "Ok",
                                                                 style:
                                                                     TextStyle(
-                                                                  color:
-                                                                      backgroundColor,
+                                                                  color: Colors
+                                                                      .white,
                                                                   fontSize:
                                                                       screenWidth *
                                                                           0.032,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
                                                                 ),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     );
                                                   },
                                                 );
@@ -704,7 +798,7 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                               ),
                               Positioned(
                                 top: 10,
-                                right: 10,
+                                left: 10,
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.of(context).pop();
@@ -713,13 +807,13 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                                     width: screenWidth * 0.12,
                                     height: screenHeight * 0.12,
                                     decoration: BoxDecoration(
-                                      color: urgentAlertColor,
+                                      color: Colors.transparent,
                                       shape: BoxShape.circle,
                                     ),
                                     child: Center(
                                       child: Icon(
-                                        Icons.close,
-                                        color: backgroundColor,
+                                        Icons.arrow_back_ios,
+                                        color: Colors.white,
                                         size: screenWidth * 0.08,
                                       ),
                                     ),
@@ -732,7 +826,7 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                       );
                     },
                   ),
-                  SizedBox(height: screenHeight * 0.015),
+                  SizedBox(height: screenHeight * 0.007),
                   SizedBox(
                     height: screenHeight * 0.01,
                   ),
@@ -751,7 +845,8 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                   SizedBox(height: screenHeight * 0.01),
                   Row(
                     children: [
-                      HorizontalButtonWidget('Projetos e \nProgramas', Icons.handyman,
+                      HorizontalButtonWidget(
+                          'Projetos e \nProgramas', Icons.handyman,
                           onPressed: () async {
                         await openWebPage(
                             'https://ifg.edu.br/projetos-e-programas');
@@ -771,7 +866,8 @@ Widget _body(BuildContext context, double screenWidth, double screenHeight) {
                           onPressed: () async {
                         await openWebPage('https://ifg.edu.br/ouvidoria');
                       }),
-                      HorizontalButtonWidget('Mercado\n De Trabalho', Icons.work,
+                      HorizontalButtonWidget(
+                          'Mercado\n De Trabalho', Icons.work,
                           onPressed: () async {
                         await openWebPage('https://www.ifg.edu.br/egresso');
                       }),
@@ -850,7 +946,7 @@ class _PasswordFieldState extends State<PasswordField> {
 
     return TextField(
       keyboardType: TextInputType.visiblePassword,
-      style: TextStyle(color: messageTextColor),
+      style: TextStyle(color: Colors.white),
       obscureText: _obscureText,
       decoration: InputDecoration(
         labelText: widget.labelText,
@@ -902,12 +998,12 @@ class _RememberDataState extends State<RememberData> {
     final screenHeight = size.height;
 
     return SizedBox(
-      width: screenWidth * 0.09, 
-      height: screenHeight * 0.05, 
+      width: screenWidth * 0.09,
+      height: screenHeight * 0.05,
       child: Checkbox(
-        hoverColor: mainColor,
-        focusColor: mainColor,
-        activeColor: mainColor,
+        hoverColor: Colors.white,
+        focusColor: Colors.white,
+        activeColor: Colors.white,
         value: _remember,
         onChanged: (bool? value) {
           setState(() {
@@ -918,7 +1014,7 @@ class _RememberDataState extends State<RememberData> {
         fillColor: WidgetStateProperty.resolveWith<Color?>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.selected)) {
-              return mainColor;
+              return Colors.teal.shade900;
             }
             return Colors.transparent;
           },
@@ -951,9 +1047,9 @@ class _AutoLoginState extends State<AutoLogin> {
       width: screenWidth * 0.09,
       height: screenHeight * 0.05,
       child: Checkbox(
-        hoverColor: mainColor,
-        focusColor: mainColor,
-        activeColor: mainColor,
+        hoverColor: Colors.white,
+        focusColor: Colors.white,
+        activeColor: Colors.white,
         value: _remember,
         onChanged: (bool? value) {
           setState(() {
@@ -964,7 +1060,7 @@ class _AutoLoginState extends State<AutoLogin> {
         fillColor: WidgetStateProperty.resolveWith<Color?>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.selected)) {
-              return mainColor;
+              return Colors.teal.shade900;
             }
             return Colors.transparent;
           },

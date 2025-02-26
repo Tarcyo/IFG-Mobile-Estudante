@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
 import 'material_discipline_card.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class MaterialDisciplineScreen extends StatefulWidget {
   MaterialDisciplineScreen({Key? key}) : super(key: key);
@@ -39,7 +38,7 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -66,7 +65,7 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => Navigator.of(context).pop(),
@@ -74,10 +73,96 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
       right: IconButton(
         icon: Icon(
           Icons.help_outline,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Título com emoji
+                      Text(
+                        "Ajuda",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Text(
+                        "📜 Seleção de Disciplina:\n"
+                        "➡ Utilize a tela de rolagem para navegar entre as disciplinas disponíveis.\n\n"
+                        "👉 Como Usar:\n"
+                        "➡ Toque na disciplina desejada para ver os materiais correspondentes.\n\n"
+                        "🔍 Dica:\n"
+                        "➡ Deslize a tela para explorar todas as opções.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.032,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal.shade400,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(180.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
       ),
       center: Center(
         child: Container(
@@ -85,8 +170,8 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
           width: screenHeight * 0.15,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: backgroundColor,
-            border: Border.all(color: mainColor, width: 1),
+            color: Colors.white,
+            border: Border.all(color: Colors.white, width: 1),
           ),
           child: Padding(
             padding: EdgeInsets.all(screenWidth * 0.02),
@@ -96,7 +181,7 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
                 Icon(
                   Icons.book,
                   size: screenHeight * 0.1,
-                  color: mainColor,
+                  color: Colors.teal.shade900,
                 ),
               ],
             ),
@@ -105,16 +190,16 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
       ),
       top: Text(
         "Material de aula",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: Center(
         child: TabBar(
           tabAlignment: TabAlignment.center,
           controller: _tabController,
           isScrollable: true,
-          labelColor: backgroundColor,
+          labelColor: Colors.white,
           unselectedLabelColor: Colors.greenAccent[100],
-          indicatorColor: backgroundColor,
+          indicatorColor: Colors.white,
           dividerColor: Colors.transparent,
           indicatorPadding: EdgeInsets.zero,
           tabs: widget.yearsOfReport
@@ -142,16 +227,6 @@ class _MaterialDisciplineScreenState extends State<MaterialDisciplineScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: screenWidth * 0.02,
-            height: screenWidth * 0.02,
-          ),
-          Center(
-            child: Text(
-              "Selecione a disciplina",
-              style: TextStyle(fontSize: screenWidth * 0.05, color: mainColor),
-            ),
-          ),
           _buildDisciplineCard("Sistemas Distribuídos"),
           _buildDisciplineCard("Prática Fábrica de Software"),
         ],

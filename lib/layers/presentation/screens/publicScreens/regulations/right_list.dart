@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'right_card.dart';
 import 'right_screen.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class RightList extends StatefulWidget {
   final Map<String, dynamic> _data;
@@ -36,18 +35,17 @@ class _RightListState extends State<RightList> {
           );
         }),
       );
-      _rules.add(SizedBox(width: 40, height: 40));
     }
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -68,7 +66,7 @@ class _RightListState extends State<RightList> {
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {Navigator.of(context).pop()},
@@ -83,21 +81,21 @@ class _RightListState extends State<RightList> {
         width: screenHeight * 0.15,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
-          border: Border.all(color: mainColor, width: screenWidth * 0.0025),
+          color: Colors.white,
+          border: Border.all(color: Colors.white, width: screenWidth * 0.0025),
         ),
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.0125),
           child: Icon(
             Icons.task,
             size: screenWidth * 0.15,
-            color: mainColor,
+            color: Colors.teal.shade900,
           ),
         ),
       ),
       top: Text(
         "Direitos e Deveres",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: Center(
         child: Column(
@@ -107,8 +105,8 @@ class _RightListState extends State<RightList> {
             ),
             Text(
               "Selecione o tópico",
-              style:
-                  TextStyle(fontSize: screenWidth * 0.055, color: backgroundColor),
+              style: TextStyle(
+                  fontSize: screenWidth * 0.055, color: Colors.white),
             ),
           ],
         ),
@@ -116,7 +114,7 @@ class _RightListState extends State<RightList> {
     );
   }
 
-  Widget _body(BuildContext context, double screenWidth,double height) {
+  Widget _body(BuildContext context, double screenWidth, double height) {
     if (_rules.isEmpty) {
       return Center(
         child: CircularProgressIndicator(),
@@ -125,10 +123,6 @@ class _RightListState extends State<RightList> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: screenWidth * 0.0125,
-            height: screenWidth * 0.0125,
-          ),
           ..._rules,
         ],
       );

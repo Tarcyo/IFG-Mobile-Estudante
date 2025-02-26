@@ -1,6 +1,5 @@
 import 'material_card.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class MaterialScreen extends StatefulWidget {
@@ -18,7 +17,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -36,7 +35,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
         left: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: backgroundColor,
+            color: Colors.white,
             size: screenWidth * 0.08,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -44,7 +43,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
         right: IconButton(
           icon: Icon(
             Icons.help_outline,
-            color: backgroundColor,
+            color: Colors.white,
             size: screenWidth * 0.08,
           ),
           onPressed: () => {
@@ -52,64 +51,90 @@ class _MaterialScreenState extends State<MaterialScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Ajuda",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.055,
-                          fontWeight: FontWeight.bold,
-                          color: mainColor,
-                        ),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  contentPadding: EdgeInsets.zero,
+                  content: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.teal.shade900,
+                          Colors.green.shade800,
+                          Colors.teal.shade900,
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
                       ),
-                    ],
-                  ),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Aqui você pode acessar os arquivos e recursos disponibilizados pelos seus professores.\n\nCada arquivo é organizado verticalmente para facilitar a navegação. Você encontrará um grande ícone representando o tipo de arquivo e uma opção para abrir o arquivo.\n\n O nome do arquivo é exibido para identificar claramente o conteúdo.\n\n Ao lado do nome do arquivo, você verá o tipo de arquivo, que pode ser um documento, uma apresentação, uma planilha, entre outro e data em que o arquivo foi disponibilizado.",
-                        style: TextStyle(
-                          color: messageTextColor,
-                          fontSize: screenWidth * 0.032,
+                      borderRadius: BorderRadius.circular(32.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          blurRadius: 10,
+                          offset: const Offset(4, 4),
                         ),
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      ],
+                    ),
+                    padding: EdgeInsets.all(screenWidth * 0.045),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
+                        // Título com emoji
+                        Text(
+                          "Ajuda",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.055,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                          "📁 Arquivos e Recursos:\n"
+                          "Aqui você pode acessar os arquivos e recursos disponibilizados pelos seus professores.\n\n"
+                          "🗂 Organização dos Arquivos:\n"
+                          "Cada arquivo é organizado verticalmente para facilitar a navegação. Você encontrará um grande ícone representando o tipo de arquivo e uma opção para abri-lo.\n\n"
+                          "📝 Nome do Arquivo:\n"
+                          "O nome do arquivo é exibido para identificar claramente o conteúdo.\n\n"
+                          "📄 Tipo de Arquivo e Data:\n"
+                          "Ao lado do nome, você verá o tipo de arquivo (documento, apresentação, planilha, etc.) e a data em que ele foi disponibilizado.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.032,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(height: screenHeight * 0.03),
+                        // Botão de ação centralizado
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: mainColor,
+                            backgroundColor: Colors.teal.shade400,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(180.0),
                             ),
                           ),
                           onPressed: () {
-                            // Fechar o diálogo sem sair
                             Navigator.of(context).pop();
                           },
-                          child: Text(
-                            "Ok",
-                            style: TextStyle(
-                              color: backgroundColor,
-                              fontSize: screenWidth * 0.032,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Text(
+                              "Ok",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth * 0.032,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 );
               },
-            )
+            ),
           },
         ),
         center: Center(
@@ -118,7 +143,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
             width: screenHeight * 0.15,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(screenWidth * 1)),
-              color: backgroundColor,
+              color: Colors.white,
             ),
             child: Padding(
               padding: EdgeInsets.all(screenWidth * 0.02),
@@ -128,7 +153,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                   Icon(
                     Icons.book,
                     size: screenHeight * 0.1,
-                    color: mainColor,
+                    color: Colors.teal.shade900,
                   ),
                 ],
               ),
@@ -137,8 +162,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
         ),
         top: Text(
           "Material de aula",
-          style:
-              TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+          style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
         ),
         bottom: SizedBox(
           width: 1,

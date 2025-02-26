@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/screens/studentPrivateScreens/schedule/schedule_card.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class ScheduleScreen extends StatefulWidget {
   ScheduleScreen({Key? key}) : super(key: key);
@@ -48,7 +47,7 @@ class _ScheduleScreenState extends State<ScheduleScreen>
     final screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -75,7 +74,7 @@ class _ScheduleScreenState extends State<ScheduleScreen>
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {Navigator.of(context).pop()},
@@ -83,7 +82,7 @@ class _ScheduleScreenState extends State<ScheduleScreen>
       right: IconButton(
         icon: Icon(
           Icons.help_outline,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {
@@ -91,61 +90,88 @@ class _ScheduleScreenState extends State<ScheduleScreen>
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                backgroundColor: backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Ajuda",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.055,
-                        fontWeight: FontWeight.bold,
-                        color: mainColor,
-                      ),
+                backgroundColor: Colors
+                    .transparent, // Fundo transparente para um design personalizado
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                  ],
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Aqui você pode ver os horários das suas aulas ao longo da semana.\n\nDia da Semana: Utilize a barra de navegação na parte superior da tela para alternar entre os dias da semana.\n\nHorários das Aulas: Os horários de cada dia são exibidos verticalmente. Cada horário de aula inclui as seguintes informações:\n\nDisciplina: O nome da disciplina que será ensinada naquela aula.\n\nProfessor: O nome do professor responsável pela disciplina.\n\nLocal: O local onde a aula será realizada.",
-                      style: TextStyle(
-                        color: messageTextColor,
-                        fontSize: screenWidth * 0.032,
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
                       ),
-                    ),
-                  ],
-                ),
-                actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    ],
+                  ),
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Título centralizado
+                      Text(
+                        "Ajuda",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      // Mensagem
+                      Text(
+                        "Aqui você pode ver os horários das suas aulas ao longo da semana.\n\n"
+                        "➡ **Dia da Semana:** Utilize a barra de navegação na parte superior da tela para alternar entre os dias.\n\n"
+                        "➡ **Horários das Aulas:** Exibidos verticalmente, com as seguintes informações:\n\n"
+                        "📌 **Disciplina:** Nome da disciplina.\n"
+                        "👨‍🏫 **Professor:** Nome do professor.\n"
+                        "📍 **Local:** Onde a aula será realizada.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.032,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      // Botão de ação
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: mainColor,
+                          backgroundColor:
+                              Colors.teal.shade400, // Verde para consistência
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(180.0),
                           ),
                         ),
                         onPressed: () {
-                          // Fechar o diálogo sem sair
                           Navigator.of(context).pop();
                         },
-                        child: Text(
-                          "Ok",
-                          style: TextStyle(
-                            color: backgroundColor,
-                            fontSize: screenWidth * 0.032,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screenWidth * 0.032,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                ],
+                ),
               );
             },
           )
@@ -156,32 +182,30 @@ class _ScheduleScreenState extends State<ScheduleScreen>
         width: screenHeight * 0.15,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
-          border: Border.all(color: mainColor, width: screenWidth * 0.0025),
+          color: Colors.white,
+          border: Border.all(color: Colors.white, width: screenWidth * 0.0025),
         ),
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.03),
           child: Icon(
             Icons.calendar_month,
             size: screenHeight * 0.1,
-            color: mainColor,
+            color: Colors.teal.shade900,
           ),
         ),
       ),
       top: Text(
         "Horário de aula",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: Center(
         child: TabBar(
-          
           tabAlignment: TabAlignment.center,
           controller: _tabController,
           isScrollable: true,
-          labelColor: backgroundColor,
+          labelColor: Colors.white,
           unselectedLabelColor: Colors.greenAccent[100],
-          indicatorColor: backgroundColor,
-          
+          indicatorColor: Colors.white,
           dividerColor: Colors.transparent,
           indicatorPadding: EdgeInsets.zero,
           tabs: daysOfWeek

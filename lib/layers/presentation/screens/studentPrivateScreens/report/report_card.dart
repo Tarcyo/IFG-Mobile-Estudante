@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/styles/painters/reportPainter.dart';
 
 class ReportCard extends StatelessWidget {
   final String discipline;
@@ -22,165 +22,180 @@ class ReportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    Color corFaltas = mainColor;
 
-    corFaltas = mainColor;
+    double attendancePercentage =
+        ((maxAbsences - absences) / maxAbsences) * 100;
+    bool isLowGrade = grade < 6.0;
+    bool isLowAttendance = attendancePercentage < 85;
 
-    Color? corNota = mainColor;
+    IconData iconeSituacao;
+    List<Color> gradientColors;
 
-    Color corSituacao = mainColor;
-    IconData iconeSituacao = Icons.pending;
-    if (situation == 'Aprovado') {
+    if (situation == 'Cursando') {
+      iconeSituacao = Icons.pending;
+      gradientColors = [
+        Colors.blue.shade900,
+        Colors.lightBlue.shade500,
+        Colors.blue.shade900
+      ];
+    } else if (!isLowGrade && !isLowAttendance) {
       iconeSituacao = Icons.verified;
-    } else if (situation == 'Reprovado') {
+      gradientColors = [
+        Colors.teal.shade900,
+        Colors.green.shade600,
+        Colors.teal.shade900
+      ];
+    } else {
       iconeSituacao = Icons.warning;
+      gradientColors = [
+        Colors.red.shade900,
+        Colors.pink.shade300,
+        Colors.red.shade900
+      ];
     }
 
-    return Center(
-      child: Column(
+    return Container(
+      margin: EdgeInsets.symmetric(
+          vertical: screenWidth * 0.03, horizontal: screenWidth * 0.04),
+      padding: EdgeInsets.all(screenWidth * 0.04),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: gradientColors,
+          stops: const [0.1, 0.5, 0.9],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(screenWidth * 0.05),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 15,
+            spreadRadius: 2,
+            offset: const Offset(5, 7),
+          ),
+        ],
+      ),
+      child: Stack(
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: screenWidth * 0.04),
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  
-                  height: screenWidth * 0.25,
-                  width: screenWidth * 0.25,
-                  decoration: BoxDecoration(
-                    color: corSituacao,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(screenWidth * 0.07)),
-                         
-            
-        
-                  ),
-                  
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          Positioned.fill(
+            child: Opacity(
+              opacity: 1,
+              child: CustomPaint(
+                painter: ReportPainter(),
+              ),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: screenWidth * 0.25,
+                width: screenWidth * 0.25,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(screenWidth * 0.05),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      iconeSituacao,
+                      color: Colors.white,
+                      size: screenWidth * 0.1,
+                    ),
+                    SizedBox(height: screenWidth * 0.02),
+                    Text(
+                      situation,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.035,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: screenWidth * 0.04),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _buildInfoRow(
+                        Icons.school, discipline, Colors.white, screenWidth),
+                    _buildInfoRow(Icons.person, 'Prof. $teacher',
+                        Colors.white70, screenWidth),
+                    Row(
                       children: [
-                        Icon(
-                          iconeSituacao,
-                          color: backgroundColor,
-                          size: screenWidth * 0.15,
+                        Expanded(
+                          child: _buildInfoRow(Icons.emoji_events,
+                              'Nota: $grade', Colors.white70, screenWidth),
                         ),
-                        SizedBox(height: screenWidth * 0.02),
-                        Text(
-                          situation.toString(),
-                          style: TextStyle(
-                            color: backgroundColor,
-                            fontSize: screenWidth * 0.035,
+                        if (isLowGrade) ...[
+                          SizedBox(width: screenWidth * 0.01),
+                          Icon(
+                            Icons.warning,
+                            color: Colors.yellow,
+                            size: screenWidth * 0.05,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        ],
                       ],
                     ),
-                  ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInfoRow(
+                              Icons.event_busy,
+                              'Faltas: $absences (máx $maxAbsences)',
+                              Colors.white70,
+                              screenWidth),
+                        ),
+                        if (isLowAttendance) ...[
+                          SizedBox(width: screenWidth * 0.01),
+                          Icon(
+                            Icons.warning,
+                            color: Colors.yellow,
+                            size: screenWidth * 0.05,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(width: screenWidth * 0.02),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.school,
-                            color: mainColor,
-                            size: screenWidth * 0.06,
-                          ),
-                          SizedBox(width: screenWidth * 0.02),
-                          Flexible(
-                            child: Text(
-                              discipline,
-                              style: TextStyle(
-                                color: mainColor,
-                                fontSize: screenWidth * 0.03,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: screenWidth * 0.02),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.emoji_events,
-                            color: messageTextColor,
-                            size: screenWidth * 0.06,
-                          ),
-                          SizedBox(width: screenWidth * 0.02),
-                          Flexible(
-                            child: Text(
-                              "Nota: " + grade.toString(),
-                              style: TextStyle(
-                                color: messageTextColor,
-                                fontSize: screenWidth * 0.03,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          grade <= 6.5
-                              ? Row(
-                                  children: [
-                                    SizedBox(width: screenWidth * 0.01),
-                                    Icon(Icons.warning, color: corNota),
-                                  ],
-                                )
-                              : SizedBox(),
-                        ],
-                      ),
-                      SizedBox(height: screenWidth * 0.02),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.event_busy,
-                            color: messageTextColor,
-                            size: screenWidth * 0.06,
-                          ),
-                          Flexible(
-                            child: Text(
-                              "Faltas: " +
-                                  absences.toString() +
-                                  " (máximo " +
-                                  maxAbsences.toString() +
-                                  ")",
-                              style: TextStyle(
-                                color: messageTextColor,
-                                fontSize: screenWidth * 0.03,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          absences >= (maxAbsences / 2)
-                              ? Row(
-                                  children: [
-                                    SizedBox(width: screenWidth * 0.01),
-                                    Icon(
-                                      Icons.warning,
-                                      color: corFaltas,
-                                    )
-                                  ],
-                                )
-                              : SizedBox(),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
+
+  Widget _buildInfoRow(
+      IconData icon, String text, Color color, double screenWidth) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: color,
+          size: screenWidth * 0.05,
+        ),
+        SizedBox(width: screenWidth * 0.02),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: color,
+              fontSize: screenWidth * 0.038,
+              fontWeight: FontWeight.w500,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
+  }
 }
+

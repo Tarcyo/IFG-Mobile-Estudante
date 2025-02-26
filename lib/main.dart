@@ -1,7 +1,6 @@
 import 'package:provider/provider.dart';
 import 'layers/presentation/screens/mainTabBar/main_tab_bar.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/providers/will_auto_login_bool_Provider.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/providers/already_auto_logged_bool_provider.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/providers/notas_list_controller_provider.dart';
@@ -15,6 +14,7 @@ import 'package:get_it/get_it.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Inject.init();
 
   TextEditingController senhaController = TextEditingController();
@@ -32,8 +32,6 @@ void main() async {
 
     await alunoController.getAlunoPorMatricula(matricula);
   }
-
-   
 
   runApp(IFG_Mobile_Estudante(autoLogin, alunoController, notasController));
 }
@@ -66,20 +64,18 @@ class IFG_Mobile_Estudante extends StatelessWidget {
       child: Builder(
         builder: (context) {
           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: mainColor,
+            statusBarColor: Colors.teal.shade900,
           ));
 
           SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-          setDarkMode(
-              MediaQuery.of(context).platformBrightness == Brightness.dark);
 
           return MaterialApp(
             title: 'IFG Mobile Estudante',
             theme: ThemeData(
-              primaryColor: mainColor,
+              primaryColor: Colors.green,
               appBarTheme: AppBarTheme(
-                color: backgroundColor,
-                iconTheme: IconThemeData(color: backgroundColor),
+                color: Colors.green,
+                iconTheme: IconThemeData(color: Colors.white),
               ),
               fontFamily: "Quicksand",
             ),

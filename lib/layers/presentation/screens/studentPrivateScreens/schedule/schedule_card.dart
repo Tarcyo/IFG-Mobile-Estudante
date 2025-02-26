@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/styles/painters/schedulePainter.dart';
 
 class ScheduleCard extends StatelessWidget {
   final String begin;
@@ -21,134 +21,121 @@ class ScheduleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: screenWidth * 0.045),
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.045),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      margin: EdgeInsets.symmetric(
+          vertical: screenWidth * 0.03, horizontal: screenWidth * 0.04),
+      padding: EdgeInsets.all(screenWidth * 0.04),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.teal.shade900,
+            Colors.green.shade600,
+            Colors.teal.shade900,
+          ],
+          stops: const [0.1, 0.5, 0.9],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(screenWidth * 0.05),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.lightGreenAccent.withValues(alpha: 0.4),
+            blurRadius: 15,
+            spreadRadius: 2,
+            offset: const Offset(5, 7),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Opacity(
+              opacity: 1,
+              child: CustomPaint(
+                painter: SchedulePainter(),
+              ),
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                height: screenWidth * 0.3,
-                width: screenWidth * 0.3,
+                height: screenWidth * 0.25,
+                width: screenWidth * 0.25,
                 decoration: BoxDecoration(
-                  color: mainColor,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(screenWidth * 0.055)),
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(screenWidth * 0.05),
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          width: screenWidth * 0.05,
-                          height: screenWidth * 0.05),
-                      Center(
-                        child: Icon(
-                          Icons.schedule,
-                          color: backgroundColor,
-                          size: screenWidth * 0.15,
-                        ),
-                      ),
-                      SizedBox(
-                          width: screenWidth * 0.025,
-                          height: screenWidth * 0.025),
-                      Text(
-                        '$begin - $end',
-                        style: TextStyle(
-                          color: backgroundColor,
-                          fontSize: screenWidth * 0.04,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(width: screenWidth * 0.02),
-              Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.school,
-                          color: mainColor,
-                          size: screenWidth * 0.056,
-                        ),
-                        Flexible(
-                          child: Text(
-                            ' $discipline',
-                            style: TextStyle(
-                              color: mainColor,
-                              fontSize: screenWidth * 0.036,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+                  children: [
+                    Icon(
+                      Icons.schedule,
+                      color: Colors.white,
+                      size: screenWidth * 0.1,
                     ),
-                    SizedBox(
-                        height: screenWidth * 0.025,
-                        width: screenWidth * 0.005),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.person,
-                          size: screenWidth * 0.056,
-                          color: messageTextColor,
-                        ),
-                        Flexible(
-                          child: Text(
-                            ' Prof. $teacher',
-                            style: TextStyle(
-                              color: messageTextColor,
-                              fontSize: screenWidth * 0.036,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                        height: screenWidth * 0.025,
-                        width: screenWidth * 0.005),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.room,
-                          size: screenWidth * 0.056,
-                          color: messageTextColor,
-                        ),
-                        Flexible(
-                          child: Text(
-                            ' Sala $classroom',
-                            style: TextStyle(
-                              color: messageTextColor,
-                              fontSize: screenWidth * 0.036,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+                    SizedBox(height: screenWidth * 0.02),
+                    Text(
+                      '$begin - $end',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.035,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
+              SizedBox(width: screenWidth * 0.04),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _buildInfoRow(
+                        Icons.school, discipline, Colors.white, screenWidth),
+                    SizedBox(height: screenWidth * 0.015),
+                    _buildInfoRow(Icons.person, 'Prof. $teacher',
+                        Colors.white70, screenWidth),
+                    SizedBox(height: screenWidth * 0.015),
+                    _buildInfoRow(Icons.room, 'Sala $classroom', Colors.white70,
+                        screenWidth),
+                  ],
+                ),
+              ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(
+      IconData icon, String text, Color color, double screenWidth) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: color,
+          size: screenWidth * 0.05,
+        ),
+        SizedBox(width: screenWidth * 0.02),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: color,
+              fontSize: screenWidth * 0.038,
+              fontWeight: FontWeight.w500,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
     );
   }
 }
+
+

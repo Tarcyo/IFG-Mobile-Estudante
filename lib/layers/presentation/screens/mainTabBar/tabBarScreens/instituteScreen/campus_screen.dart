@@ -4,7 +4,6 @@ import 'package:ifg_mobile_estudante/core/utils/url_launcher_helper.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/horizontal_regular_button_widget.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/very_long_horizontal_button.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class CampusScreen extends StatelessWidget {
   final Map<String, dynamic> _data;
@@ -19,14 +18,15 @@ class CampusScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
             Expanded(
               child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: _body(context, screenWidth, screenHeight)),
+                physics: const BouncingScrollPhysics(),
+                child: _body(context, screenWidth, screenHeight),
+              ),
             ),
           ],
         ),
@@ -40,17 +40,91 @@ class CampusScreen extends StatelessWidget {
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
+          size: screenWidth * 0.08,
+        ),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+      right: IconButton(
+        icon: Icon(
+          Icons.help_outline,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () {
-          Navigator.of(context).pop();
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade800,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(32.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Ajuda",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.06,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Text(
+                        "Nesta tela você pode acessar informações do campus, como sua descrição, calendário acadêmico, cursos, contatos e redes sociais.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.035,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(180.0),
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.035,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
         },
-      ),
-      right: Icon(
-        Icons.help_outline,
-        color: Colors.transparent,
-        size: screenWidth * 0.08,
       ),
       center: Container(
         height: screenHeight * 0.2,
@@ -58,7 +132,7 @@ class CampusScreen extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(180),
           border: Border.all(
-            color: backgroundColor,
+            color: Colors.white,
             width: 1,
           ),
           image: DecorationImage(
@@ -70,10 +144,11 @@ class CampusScreen extends StatelessWidget {
       top: Center(
         child: Text(
           _city,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: backgroundColor,
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.06),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: screenWidth * 0.065,
+          ),
         ),
       ),
       bottom: const SizedBox(width: 1),
@@ -82,144 +157,188 @@ class CampusScreen extends StatelessWidget {
 
   Widget _body(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 10),
-      color: backgroundColor,
+      padding: EdgeInsets.only(bottom: screenHeight * 0.01),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: screenWidth * 0.03,
-            height: screenHeight * 0.03,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Card(
-                color: focusBackgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
+          SizedBox(height: screenHeight * 0.02),
+          Center(
+            child: Container(
+              width: screenWidth * 0.9,
+              child: CustomPaint(
+                painter: BackgroundWavePainter(),
                 child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  width: screenWidth * 0.9,
+                  padding: EdgeInsets.all(screenWidth * 0.045),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade900,
+                        Colors.green.shade600,
+                        Colors.teal.shade900,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(4, 4),
+                      ),
+                    ],
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Descrição",
-                                style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: screenWidth * 0.055),
-                              ),
-                            ],
+                      Center(
+                        child: Text(
+                          "Descrição",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.065,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(
-                            width: screenWidth * 0.015,
-                            height: screenWidth * 0.015,
-                          ),
-                          Text(
-                            _data["descrição"],
-                            style: TextStyle(
-                                color: messageTextColor,
-                                fontSize: screenWidth * 0.032),
-                          )
-                        ],
+                        ),
                       ),
-                      SizedBox(height: screenHeight * 0.01),
+                      SizedBox(height: screenHeight * 0.015),
+                      Text(
+                        _data["descrição"],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth * 0.04,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-          SizedBox(height: screenHeight * 0.015),
+          SizedBox(height: screenHeight * 0.02),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             child: Center(
-                child: Column(
-              children: [
-                Row(
-                  children: [
-                    HorizontalButtonWidget(
-                      'Calendário\nAcadêmico',
-                      Icons.calendar_month,
-                      onPressed: () async {
-                        await openWebPage(
-                            "https://www.ifg.edu.br/calendario-academico");
-                      },
-                    ),
-                    HorizontalButtonWidget(
-                      'Lista\n De Cursos',
-                      Icons.list_alt,
-                      onPressed: () async {
-                        await openWebPage("http://cursos.ifg.edu.br");
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: screenHeight * 0.015),
-                Row(
-                  children: [
-                    HorizontalButtonWidget(
-                      'Telefones',
-                      Icons.phone,
-                      onPressed: () async {
-                        await openWebPage('http://www.ifg.edu.br/' +
-                            removerAcentosParaUrl(_city) +
-                            "/contato");
-                      },
-                    ),
-                    HorizontalButtonWidget(
-                      'Localização',
-                      Icons.location_on,
-                      onPressed: () async {
-                        await openWebPage(_data['localização']);
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: screenHeight * 0.015),
-                Row(
-                  children: [
-                    HorizontalButtonWidget(
-                      'Facebook',
-                      Icons.facebook,
-                      onPressed: () async {
-                        await openWebPage(_data['facebook']);
-                      },
-                    ),
-                    HorizontalButtonWidget(
-                      'Instagram',
-                      Icons.camera_alt,
-                      onPressed: () async {
-                        await openWebPage(_data['instagram']);
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            )),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      HorizontalButtonWidget(
+                        'Calendário\nAcadêmico',
+                        Icons.calendar_month,
+                        onPressed: () async {
+                          await openWebPage(
+                              "https://www.ifg.edu.br/calendario-academico");
+                        },
+                      ),
+                      HorizontalButtonWidget(
+                        'Lista\n De Cursos',
+                        Icons.list_alt,
+                        onPressed: () async {
+                          await openWebPage("http://cursos.ifg.edu.br");
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Row(
+                    children: [
+                      HorizontalButtonWidget(
+                        'Telefones',
+                        Icons.phone,
+                        onPressed: () async {
+                          await openWebPage('http://www.ifg.edu.br/' +
+                              removerAcentosParaUrl(_city) +
+                              "/contato");
+                        },
+                      ),
+                      HorizontalButtonWidget(
+                        'Localização',
+                        Icons.location_on,
+                        onPressed: () async {
+                          await openWebPage(_data['localização']);
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Row(
+                    children: [
+                      HorizontalButtonWidget(
+                        'Facebook',
+                        Icons.facebook,
+                        onPressed: () async {
+                          await openWebPage(_data['facebook']);
+                        },
+                      ),
+                      HorizontalButtonWidget(
+                        'Instagram',
+                        Icons.camera_alt,
+                        onPressed: () async {
+                          await openWebPage(_data['instagram']);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-          SizedBox(height: screenHeight * 0.015),
+          SizedBox(height: screenHeight * 0.02),
           VeryLongHorizontalButtonWidget(
             "Página do Campus",
             Icons.house,
             onPressed: () async {
               await openWebPage(
-                  'http://www.ifg.edu.br/' + removerAcentosParaUrl(_city));
+                'http://www.ifg.edu.br/' + removerAcentosParaUrl(_city),
+              );
             },
-          )
+          ),
+          SizedBox(height: screenHeight * 0.02),
         ],
       ),
     );
   }
+}
 
+class BackgroundWavePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          Colors.teal.shade900.withValues(alpha: 0.2),
+          Colors.teal.shade900.withValues(alpha: 0.2),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
+    final Path path = Path();
+    path.moveTo(0, size.height * 0.8);
+    path.quadraticBezierTo(
+      size.width * 0.25,
+      size.height * 0.75,
+      size.width * 0.5,
+      size.height * 0.8,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.75,
+      size.height * 0.85,
+      size.width,
+      size.height * 0.8,
+    );
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
 }

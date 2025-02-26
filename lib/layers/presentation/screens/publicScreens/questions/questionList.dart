@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'question_card.dart';
 import 'answer_screen.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 class QuestionsList extends StatefulWidget {
   final Map<String, dynamic> _data;
 
@@ -35,10 +34,7 @@ class _QuestionsListState extends State<QuestionsList> {
           );
         }),
       );
-      _questions.add(const SizedBox(
-        width: 40,
-        height: 40,
-      ));
+    
     }
   }
 
@@ -49,7 +45,7 @@ class _QuestionsListState extends State<QuestionsList> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
@@ -69,7 +65,7 @@ class _QuestionsListState extends State<QuestionsList> {
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
         onPressed: () => {Navigator.of(context).pop()},
@@ -84,21 +80,21 @@ class _QuestionsListState extends State<QuestionsList> {
         width: screenHeight * 0.15,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
-          border: Border.all(color: mainColor, width: screenWidth * 0.0025),
+          color: Colors.white,
+          border: Border.all(color: Colors.white, width: screenWidth * 0.0025),
         ),
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.0125),
           child: Icon(
             Icons.question_mark,
             size: screenHeight * 0.1,
-            color: mainColor,
+            color: Colors.teal.shade900,
           ),
         ),
       ),
       top: Text(
         "Dúvidas Frequentes",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(fontSize: screenWidth * 0.06, color: Colors.white),
       ),
       bottom: Center(
         child: Column(
@@ -109,7 +105,7 @@ class _QuestionsListState extends State<QuestionsList> {
             Text(
               "Qual é sua dúvida?",
               style:
-                  TextStyle(fontSize: screenWidth * 0.055, color: backgroundColor),
+                  TextStyle(fontSize: screenWidth * 0.055, color: Colors.white),
             ),
           ],
         ),
@@ -126,10 +122,7 @@ class _QuestionsListState extends State<QuestionsList> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: screenWidth * 0.0125,
-            height: screenHeight * 0.02,
-          ),
+        
           ..._questions,
         ],
       );

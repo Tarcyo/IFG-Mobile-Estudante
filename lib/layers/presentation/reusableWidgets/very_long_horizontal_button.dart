@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class VeryLongHorizontalButtonWidget extends StatelessWidget {
   final String text;
@@ -16,39 +15,56 @@ class VeryLongHorizontalButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     return Center(
-      child: SizedBox(
-        width: screenWidth * 0.8, 
-        height: screenHeight * 0.1, 
+      child: Container(
+        width: screenWidth * 0.8,
+        height: screenWidth * 0.15,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: [
+              Colors.green.shade600,
+              Colors.teal.shade900,
+              Colors.teal.shade900,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: Offset(4, 4),
+            ),
+          ],
+        ),
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
-            foregroundColor: onTapButtonColor,
-            backgroundColor: focusBackgroundColor,
-            elevation: 1.5,
+            backgroundColor: Colors.transparent, // Torna o fundo transparente
+            elevation: 0, // Remove a elevação para não interferir no degradê
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(180), 
+              borderRadius: BorderRadius.circular(16),
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center, 
-            crossAxisAlignment: CrossAxisAlignment.center, 
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 leftIcon,
-                color: mainColor,
-                size: screenHeight * 0.08, 
+                color: Colors.white,
+                size: screenWidth * 0.1,
               ),
-              SizedBox(width: screenWidth * 0.02), 
+              SizedBox(width: screenWidth * 0.0219),
               Text(
                 text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: messageTextColor,
-                  fontSize: screenHeight * 0.03,
+                  color: Colors.white,
+                  fontSize: screenWidth * 0.05,
                 ),
               ),
             ],
@@ -58,3 +74,4 @@ class VeryLongHorizontalButtonWidget extends StatelessWidget {
     );
   }
 }
+

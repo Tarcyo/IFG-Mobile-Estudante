@@ -1,5 +1,6 @@
+
 import 'package:flutter/material.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
+import 'package:ifg_mobile_estudante/layers/presentation/styles/painters/headerPainter.dart';
 
 class HeaderBuilderWidget extends StatelessWidget {
   final Widget left;
@@ -23,56 +24,72 @@ class HeaderBuilderWidget extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      
       decoration: BoxDecoration(
-
-        gradient: RadialGradient(
+        color: Colors.green.shade100,
+        gradient: LinearGradient(
           colors: [
-            gradientColor,
-            mainColor
+            Colors.teal.shade900,
+            Colors.green.shade700,
+            Colors.green.shade500,
           ],
-          radius: 0.8,
-          center: Alignment.center, 
+          stops: const [0.1, 0.5, 0.9],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(screenWidth * 0.13), 
-          bottomRight: Radius.circular(screenWidth * 0.13), 
+          bottomLeft: Radius.circular(screenWidth * 0.13),
+          bottomRight: Radius.circular(screenWidth * 0.13),
         ),
-        border: Border(
-
+        border: const Border(
           bottom: BorderSide(
-            color: Colors.transparent, 
-            width: 5.0, 
+            color: Colors.transparent,
+            width: 5.0,
           ),
         ),
       ),
       padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.02, vertical: screenWidth * 0.02),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        horizontal: screenWidth * 0.02,
+        vertical: screenWidth * 0.02,
+      ),
+      child: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              left,
-              Expanded(
-                child: Center(
-                  child: top,
-                ),
+    
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.1,
+              child: CustomPaint(
+                painter: headerPainter(),
               ),
-              right
+            ),
+          ),
+          
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  left,
+                  Expanded(
+                    child: Center(
+                      child: top,
+                    ),
+                  ),
+                  right,
+                ],
+              ),
+              SizedBox(height: screenHeight * 0.005),
+              Center(
+                child: center,
+              ),
+              SizedBox(height: screenHeight * 0.0005),
+              bottom,
             ],
           ),
-          SizedBox(height: screenHeight * 0.005),
-          Center(
-            child: center,
-          ),
-          SizedBox(
-            height: screenHeight * 0.0005,
-          ),
-          bottom
         ],
       ),
     );
   }
 }
+
+

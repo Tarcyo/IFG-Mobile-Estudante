@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ifg_mobile_estudante/layers/presentation/reusableWidgets/header_builder_widget.dart';
-import 'package:ifg_mobile_estudante/layers/presentation/styles/colors.dart';
 
 class RightScreen extends StatefulWidget {
   final String _question;
@@ -24,14 +23,15 @@ class _RightScreenState extends State<RightScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.green.shade100,
         body: Column(
           children: [
             _header(context, screenWidth, screenHeight),
             Expanded(
               child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: _body(context, screenWidth, screenHeight)),
+                physics: const BouncingScrollPhysics(),
+                child: _body(context, screenWidth, screenHeight),
+              ),
             ),
           ],
         ),
@@ -39,60 +39,15 @@ class _RightScreenState extends State<RightScreen> {
     );
   }
 
-  Widget _body(context, screenWidth, screenHeight) {
-    return Column(children: [
-      SizedBox(
-        width: screenWidth * 0.025,
-        height: screenWidth * 0.025,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Card(
-            color: focusBackgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Container(
-              padding: EdgeInsets.all(screenWidth * 0.045),
-              width: screenWidth * 0.888,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Regulamento: ",
-                    style: TextStyle(
-                        color: mainColor, fontSize: screenWidth * 0.055),
-                    softWrap: true,
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.025,
-                    height: screenWidth * 0.025,
-                  ),
-                  Text(
-                    widget._answer,
-                    style: TextStyle(
-                        color: messageTextColor, fontSize: screenWidth * 0.032),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ]);
-  }
-
-  Widget _header(
-      BuildContext context, double screenWidth, double screenHeight) {
+  Widget _header(BuildContext context, double screenWidth, double screenHeight) {
     return HeaderBuilderWidget(
       left: IconButton(
         icon: Icon(
           Icons.arrow_back,
-          color: backgroundColor,
+          color: Colors.white,
           size: screenWidth * 0.08,
         ),
-        onPressed: () => {Navigator.of(context).pop()},
+        onPressed: () => Navigator.of(context).pop(),
       ),
       right: Icon(
         Icons.help_outline,
@@ -104,40 +59,95 @@ class _RightScreenState extends State<RightScreen> {
         width: screenHeight * 0.15,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: backgroundColor,
-          border: Border.all(color: mainColor, width: screenWidth * 0.0025),
+          color: Colors.white,
+          border: Border.all(color: Colors.white, width: screenWidth * 0.0025),
         ),
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.0125),
           child: Icon(
             Icons.task,
-            size: screenWidth * 0.15,
-            color: mainColor,
+            size: screenHeight * 0.1,
+            color: Colors.teal.shade900,
           ),
         ),
       ),
       top: Text(
         "Dúvidas Frequentes",
-        style: TextStyle(fontSize: screenWidth * 0.06, color: backgroundColor),
+        style: TextStyle(
+          fontSize: screenWidth * 0.06,
+          color: Colors.white, 
+        ),
       ),
       bottom: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenWidth * 0.0375,
+        child: Padding(
+          padding: EdgeInsets.only(top: screenWidth * 0.0375),
+          child: Text(
+            widget._question,
+            style: TextStyle(
+              fontSize: screenWidth * 0.055,
+              color: Colors.white, 
             ),
-            Center(
-              child: Text(
-                widget._question,
-                style: TextStyle(
-                    fontSize: screenWidth * 0.055, color: backgroundColor),
-                textAlign: TextAlign.center,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _body(BuildContext context, double screenWidth, double screenHeight) {
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: screenHeight * 0.01),
+          Container(
+            width: screenWidth * 0.9,
+            padding: EdgeInsets.all(screenWidth * 0.045),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.teal.shade900,
+                  Colors.teal.shade900,
+                  Colors.teal.shade900,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  offset: const Offset(4, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Regulamento:",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: screenWidth * 0.065,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: screenHeight * 0.015),
+                Text(
+                  widget._answer,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: screenWidth * 0.04,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
